@@ -1,0 +1,59 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - salao_saas
+
+  db:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: saas
+      POSTGRES_PASSWORD: saas123
+      POSTGRES_DB: saas_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - salao_saas:/var/lib/postgresql/data
+    networks:
+      - salao_saas
+
+  redis:
+    image: redis:7
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - salao_saas
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./frontend/dist:/usr/share/nginx/html:ro
+    networks:
+      - salao_saas
+
+volumes:
+  salao_saas:
+    name: salao_saas
+
+networks:
+  salao_saas:
+    name: salao_saas
