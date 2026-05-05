@@ -14,6 +14,8 @@ services:
         fromDatabase:
           name: genomni-salon-db
           property: connectionString
+      - key: PYTHON_VERSION
+        value: 3.12.13
       - key: REDIS_URL
         fromService:
           type: keyvalue
