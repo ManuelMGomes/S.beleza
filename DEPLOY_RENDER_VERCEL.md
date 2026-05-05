@@ -66,9 +66,17 @@ https://seu-backend.onrender.com/health
 
 ## Super admin
 
-O projeto nao cria um super admin automaticamente no seed atual.
+O projeto pode criar ou promover automaticamente um super admin no startup do backend se estas variaveis estiverem configuradas no Render:
 
-Crie manualmente com:
+```text
+SUPER_ADMIN_EMAIL=seu@email.com
+SUPER_ADMIN_PASSWORD=uma-senha-forte
+SUPER_ADMIN_NAME=Seu Nome
+```
+
+Depois de salvar essas variaveis, faca um redeploy do backend.
+
+Se preferir, tambem e possivel criar manualmente com o CLI:
 
 ```bash
 python -m app.cli create-super-admin --email seu@email.com --password 'uma-senha-forte' --name 'Seu Nome'

@@ -15,6 +15,9 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 60 * 12
     cache_ttl_seconds: int = 60
     cors_origins: str = "http://localhost:8080,http://localhost:5173,http://127.0.0.1:5173"
+    super_admin_email: str = ""
+    super_admin_password: str = ""
+    super_admin_name: str = "Super Admin"
 
 
 @lru_cache
